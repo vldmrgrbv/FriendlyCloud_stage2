@@ -12,6 +12,66 @@ namespace DIPLOMA.Data
         {
             context.Database.EnsureCreated();
 
+            if (context.CategoryRooms.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var categoryRooms = new DirectoryCategoryRooms[]
+            {
+            new DirectoryCategoryRooms{CategoryRoom="Standart"},
+            new DirectoryCategoryRooms{CategoryRoom="Apartment"},
+            new DirectoryCategoryRooms{CategoryRoom="De luxe"},
+            new DirectoryCategoryRooms{CategoryRoom="Family Room"},
+            };
+            foreach (DirectoryCategoryRooms s in categoryRooms)
+            {
+                context.CategoryRooms.Add(s);
+            }
+            context.SaveChanges();
+
+
+            if (context.TypeRooms.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var typeRooms = new DirectoryTypeRooms[]
+            {
+            new DirectoryTypeRooms{TypeRoom="1-местный"},
+            new DirectoryTypeRooms{TypeRoom="2-местный"},
+            new DirectoryTypeRooms{TypeRoom="3-местный"},
+            new DirectoryTypeRooms{TypeRoom="4-местный"},
+            };
+            foreach (DirectoryTypeRooms s in typeRooms)
+            {
+                context.TypeRooms.Add(s);
+            }
+            context.SaveChanges();
+
+
+            if (context.Rooms.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var rooms = new DirectoryRooms[]
+            {
+            new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "De luxe").DirectoryCategoryRoomsID,
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "1-местный").DirectoryTypeRoomsID, NumberRoom ="1"},
+            new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Apartment").DirectoryCategoryRoomsID,
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "2-местный").DirectoryTypeRoomsID, NumberRoom ="2"},
+            new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Family Room").DirectoryCategoryRoomsID,
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "3-местный").DirectoryTypeRoomsID, NumberRoom ="3"},
+            new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Standart").DirectoryCategoryRoomsID,
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "4-местный").DirectoryTypeRoomsID, NumberRoom ="4"},
+            };
+            foreach (DirectoryRooms s in rooms)
+            {
+                context.Rooms.Add(s);
+            }
+            context.SaveChanges();
+
             // Look for any Services.
             if (context.Services.Any())
             {
@@ -69,6 +129,7 @@ namespace DIPLOMA.Data
                 context.Clients.Add(s);
             }
             context.SaveChanges();
+
         }
     }
 }

@@ -4,14 +4,16 @@ using DIPLOMA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
 {
     [DbContext(typeof(ApplicationDbContext_2))]
-    partial class ApplicationDbContext_2ModelSnapshot : ModelSnapshot
+    [Migration("20190612201949_AddDirectorys_Category_Type_Rooms")]
+    partial class AddDirectorys_Category_Type_Rooms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,9 +146,13 @@ namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("DirectoryCategoryRoomsID");
+                    b.Property<int>("DirectoryCategoryID");
 
-                    b.Property<int>("DirectoryTypeRoomsID");
+                    b.Property<int?>("DirectoryCategoryRoomsID");
+
+                    b.Property<int>("DirectoryTypeID");
+
+                    b.Property<int?>("DirectoryTypeRoomsID");
 
                     b.Property<string>("NumberRoom")
                         .IsRequired()
@@ -203,13 +209,11 @@ namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
                 {
                     b.HasOne("DIPLOMA.Models.DirectoryCategoryRooms", "DirectoryCategoryRooms")
                         .WithMany("Rooms")
-                        .HasForeignKey("DirectoryCategoryRoomsID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DirectoryCategoryRoomsID");
 
                     b.HasOne("DIPLOMA.Models.DirectoryTypeRooms", "DirectoryTypeRooms")
                         .WithMany("Rooms")
-                        .HasForeignKey("DirectoryTypeRoomsID")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DirectoryTypeRoomsID");
                 });
 #pragma warning restore 612, 618
         }

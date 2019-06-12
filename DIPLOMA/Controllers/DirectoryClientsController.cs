@@ -20,9 +20,64 @@ namespace DIPLOMA.Controllers
         }
 
         // GET: DirectoryClients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
-            return View(await _context.Clients.ToListAsync());
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["FirstName"] = String.IsNullOrEmpty(sortOrder) ? "fname_desc" : "";
+            ViewData["SecondName"] = sortOrder == "Sname" ? "sname_desc" : "Sname";
+            ViewData["Patronymic"] = sortOrder == "Patronymic" ? "patronymic_desc" : "Patronymic";
+            ViewData["ClientDate"] = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            ViewData["CurrentFilter"] = searchString;
+            var clients = from s in _context.Clients
+                           select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                clients = clients.Where(s => s.FirstName.Contains(searchString)
+                                       || s.SecondName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "fname_desc":
+                    clients = clients.OrderByDescending(s => s.FirstName);
+                    break;
+                case "sname_desc":
+                    clients = clients.OrderByDescending(s => s.SecondName);
+                    break;
+                case "patronymic_desc":
+                    clients = clients.OrderByDescending(s => s.Patronymic);
+                    break;
+                case "Sname":
+                    clients = clients.OrderBy(s => s.SecondName);
+                    break;
+                case "Patronymic":
+                    clients = clients.OrderBy(s => s.Patronymic);
+                    break;
+                case "Date":
+                    clients = clients.OrderBy(s => s.ClientDate);
+                    break;
+                case "date_desc":
+                    clients = clients.OrderByDescending(s => s.ClientDate);
+                    break;
+                default:
+                    clients = clients.OrderBy(s => s.FirstName);
+                    break;
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<DirectoryClients>.CreateAsync(clients.AsNoTracking(), pageNumber ?? 1, pageSize));
+            //return View(await clients.AsNoTracking().ToListAsync());
+            //return View(await _context.Clients.ToListAsync());
         }
 
         // GET: DirectoryClients/Details/5
@@ -54,7 +109,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DirectoryClientsID,FirstName,SecondName,Patronymic,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace")] DirectoryClients directoryClients)
+        public async Task<IActionResult> Create([Bind("DirectoryClientsID,FirstName,SecondName,Patronymic,ClientDate,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace")] DirectoryClients directoryClients)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +141,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DirectoryClientsID,FirstName,SecondName,Patronymic,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace")] DirectoryClients directoryClients)
+        public async Task<IActionResult> Edit(int id, [Bind("DirectoryClientsID,FirstName,SecondName,Patronymic,ClientDate,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace")] DirectoryClients directoryClients)
         {
             if (id != directoryClients.DirectoryClientsID)
             {

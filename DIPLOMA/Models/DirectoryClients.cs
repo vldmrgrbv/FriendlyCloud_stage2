@@ -12,17 +12,14 @@ namespace DIPLOMA.Models
         public int DirectoryClientsID { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [Display(Name = "Имя")]
         public string FirstName { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [Display(Name = "Фамилия")]
         public string SecondName { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
-        [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
         [Display(Name = "Отчество")]
         public string Patronymic { get; set; }
         [Required]
