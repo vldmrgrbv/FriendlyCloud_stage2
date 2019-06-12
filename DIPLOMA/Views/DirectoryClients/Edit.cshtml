@@ -1,17 +1,18 @@
 ﻿@model DIPLOMA.Models.DirectoryClients
 
 @{
-    ViewData["Title"] = "Создание - Клиент";
+    ViewData["Title"] = Model.FirstName + " " + Model.Patronymic + " " + Model.SecondName + " - Изменение";
 }
 
-<h1 class="mb-5">Создание</h1>
+<h1 class="mb-5">Изменение</h1>
 
-<h4>Клиент</h4>
+<h4>Клиент <b>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.Patronymic) @Html.DisplayFor(model => model.SecondName)</b></h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="DirectoryClientsID" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label">Имя</label>
                 <input asp-for="FirstName" class="form-control" />
@@ -63,11 +64,15 @@
                 <span asp-validation-for="DataAboutWorkPlace" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Создать" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-outline-dark">Назад</a>
             </div>
         </form>
     </div>
+</div>
+
+<div>
+    
 </div>
 
 @section Scripts {

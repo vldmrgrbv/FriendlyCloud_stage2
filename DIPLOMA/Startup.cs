@@ -50,7 +50,11 @@ namespace DIPLOMA
             })
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
-            
+
+            services.AddDbContext<ApplicationDbContext_2>(options =>
+                options.UseSqlServer(
+                    Configuration["Data:FriendlyCloudIdentity:ConnectionString"]));
+
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddDefaultUI(UIFramework.Bootstrap4)
             //    .AddEntityFrameworkStores<ApplicationDbContext>();

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DIPLOMA.Models.DirectoryClients>
+
+@{
+    ViewData["Title"] = "Клиенты";
+}
+
+<h1>Клиенты</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Добавить</a>
+</p>
+<div class="table_scroll overflow-auto">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>
+                    Имя
+                </th>
+                <th>
+                    Фамилия
+                </th>
+                <th>
+                    Отчество
+                </th>
+                <th>
+                    Серия паспорта
+                </th>
+                <th>
+                    Номер паспорта
+                </th>
+                <th>
+                    Адрес регистрации
+                </th>
+                <th>
+                    Адрес проживания
+                </th>
+                <th>
+                    Телефон
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Данные о месте работы
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.DirectoryClientsID" class="btn btn-info col-12 mb-1">Детально</a>
+                    <a asp-action="Edit" asp-route-id="@item.DirectoryClientsID" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                    <a asp-action="Delete" asp-route-id="@item.DirectoryClientsID" class="btn btn-danger col-12">Удалить</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecondName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Patronymic)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassportSerial)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PassportNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressRegistration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddressResidential)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TelephoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataAboutWorkPlace)
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
