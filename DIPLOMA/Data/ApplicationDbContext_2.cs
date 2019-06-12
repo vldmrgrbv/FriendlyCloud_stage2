@@ -14,5 +14,7 @@ namespace DIPLOMA.Data
         }
 
         public DbSet<DirectoryClients> Clients { get; set; }
+        public DbSet<DirectoryEmployees> Employees { get; set; }
+        public DbSet<DirectoryServices> Services { get; set; }
     }
 }

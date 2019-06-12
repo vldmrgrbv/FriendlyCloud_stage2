@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DIPLOMA.Models
 {
-    public class DirectoryClients
+    public class DirectoryEmployees
     {
-        public int DirectoryClientsID { get; set; }
+        public int DirectoryEmployeesID { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 2)]
         [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
@@ -42,43 +42,28 @@ namespace DIPLOMA.Models
         [Display(Name = "Адрес проживания")]
         public string AddressResidential { get; set; }
         [Required]
+        [Display(Name = "Женат(замужем)")]
+        public bool MaritalStatus { get; set; }
+        [Required]
         [StringLength(11)]
         [RegularExpression(@"^[0-9]+$")]
         [Display(Name = "Телефон")]
         public string TelephoneNumber { get; set; }
         [Required]
+        [Display(Name = "Образование")]
+        public string Education { get; set; }
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
         [Required]
-        [Display(Name = "Данные о месте работы")]
-        public string DataAboutWorkPlace { get; set; }
+        [Display(Name = "Служба")]
+        public int DirectoryServicesID { get; set; }
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Дата добавления")]
-        public DateTime ClientDate { get; set; }
-    }
+        public DateTime EmployeeDate { get; set; }
 
-    //migrationBuilder.CreateTable(
-    //           name: "Clients",
-    //            columns: table => new
-    //            {
-    //                DirectoryClientsID = table.Column<int>(nullable: false)
-    //                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-    //                FirstName = table.Column<string>(maxLength: 50, nullable: false),
-    //                SecondName = table.Column<string>(maxLength: 50, nullable: false),
-    //                Patronymic = table.Column<string>(maxLength: 50, nullable: false),
-    //                PassportSerial = table.Column<string>(maxLength: 4, nullable: false),
-    //                PassportNumber = table.Column<string>(maxLength: 6, nullable: false),
-    //                AddressRegistration = table.Column<string>(nullable: false),
-    //                AddressResidential = table.Column<string>(nullable: false),
-    //                TelephoneNumber = table.Column<string>(maxLength: 11, nullable: false),
-    //                Email = table.Column<string>(nullable: false),
-    //                DataAboutWorkPlace = table.Column<string>(nullable: false),
-    //                ClientDate = table.Column<DateTime>(nullable: false, defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified))
-    //            },
-    //            constraints: table =>
-    //            {
-    //                table.PrimaryKey("PK_Clients", x => x.DirectoryClientsID);
-    //            });
+        public DirectoryServices DirectoryServices { get; set; }
+    }
 }
