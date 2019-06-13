@@ -13,6 +13,12 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Repairs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CostPerDay)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.NumberRoom)
             </th>
             <th>
@@ -21,12 +27,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.DirectoryCategoryRooms)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DirectoryStatusRooms)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Repairs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CostPerDay)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumberRoom)
             </td>
@@ -35,6 +50,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DirectoryCategoryRooms.CategoryRoom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DirectoryStatusRooms.StatusRoom)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.DirectoryRoomsID">Edit</a> |

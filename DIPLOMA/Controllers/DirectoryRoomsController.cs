@@ -22,7 +22,7 @@ namespace DIPLOMA.Controllers
         // GET: DirectoryRooms
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext_2 = _context.Rooms.Include(d => d.DirectoryCategoryRooms).Include(d => d.DirectoryTypeRooms);
+            var applicationDbContext_2 = _context.Rooms.Include(d => d.DirectoryCategoryRooms).Include(d => d.DirectoryStatusRooms).Include(d => d.DirectoryTypeRooms);
             return View(await applicationDbContext_2.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace DIPLOMA.Controllers
 
             var directoryRooms = await _context.Rooms
                 .Include(d => d.DirectoryCategoryRooms)
+                .Include(d => d.DirectoryStatusRooms)
                 .Include(d => d.DirectoryTypeRooms)
                 .FirstOrDefaultAsync(m => m.DirectoryRoomsID == id);
             if (directoryRooms == null)
@@ -50,6 +51,7 @@ namespace DIPLOMA.Controllers
         public IActionResult Create()
         {
             ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom");
+            ViewData["DirectoryStatusRoomsID"] = new SelectList(_context.StatusRooms, "DirectoryStatusRoomsID", "StatusRoom");
             ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom");
             return View();
         }
@@ -59,7 +61,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,NumberRoom")] DirectoryRooms directoryRooms)
+        public async Task<IActionResult> Create([Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,Repairs,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +70,7 @@ namespace DIPLOMA.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", directoryRooms.DirectoryCategoryRoomsID);
+            ViewData["DirectoryStatusRoomsID"] = new SelectList(_context.StatusRooms, "DirectoryStatusRoomsID", "StatusRoom", directoryRooms.DirectoryStatusRoomsID);
             ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", directoryRooms.DirectoryTypeRoomsID);
             return View(directoryRooms);
         }
@@ -86,6 +89,7 @@ namespace DIPLOMA.Controllers
                 return NotFound();
             }
             ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", directoryRooms.DirectoryCategoryRoomsID);
+            ViewData["DirectoryStatusRoomsID"] = new SelectList(_context.StatusRooms, "DirectoryStatusRoomsID", "StatusRoom", directoryRooms.DirectoryStatusRoomsID);
             ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", directoryRooms.DirectoryTypeRoomsID);
             return View(directoryRooms);
         }
@@ -95,7 +99,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,NumberRoom")] DirectoryRooms directoryRooms)
+        public async Task<IActionResult> Edit(int id, [Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,Repairs,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
         {
             if (id != directoryRooms.DirectoryRoomsID)
             {
@@ -123,6 +127,7 @@ namespace DIPLOMA.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", directoryRooms.DirectoryCategoryRoomsID);
+            ViewData["DirectoryStatusRoomsID"] = new SelectList(_context.StatusRooms, "DirectoryStatusRoomsID", "StatusRoom", directoryRooms.DirectoryStatusRoomsID);
             ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", directoryRooms.DirectoryTypeRoomsID);
             return View(directoryRooms);
         }
@@ -137,6 +142,7 @@ namespace DIPLOMA.Controllers
 
             var directoryRooms = await _context.Rooms
                 .Include(d => d.DirectoryCategoryRooms)
+                .Include(d => d.DirectoryStatusRooms)
                 .Include(d => d.DirectoryTypeRooms)
                 .FirstOrDefaultAsync(m => m.DirectoryRoomsID == id);
             if (directoryRooms == null)

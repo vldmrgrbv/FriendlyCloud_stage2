@@ -12,6 +12,23 @@ namespace DIPLOMA.Data
         {
             context.Database.EnsureCreated();
 
+            if (context.StatusRooms.Any())
+            {
+                return;   // DB has been seeded
+            }
+
+            var statusRooms = new DirectoryStatusRooms[]
+            {
+            new DirectoryStatusRooms{StatusRoom="Забронирован"},
+            new DirectoryStatusRooms{StatusRoom="Заселен"},
+            new DirectoryStatusRooms{StatusRoom="Свободен"}
+            };
+            foreach (DirectoryStatusRooms s in statusRooms)
+            {
+                context.StatusRooms.Add(s);
+            }
+            context.SaveChanges();
+
             if (context.CategoryRooms.Any())
             {
                 return;   // DB has been seeded
@@ -58,13 +75,21 @@ namespace DIPLOMA.Data
             var rooms = new DirectoryRooms[]
             {
             new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "De luxe").DirectoryCategoryRoomsID,
-                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "1-местный").DirectoryTypeRoomsID, NumberRoom ="1"},
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "1-местный").DirectoryTypeRoomsID, NumberRoom ="1",
+                               DirectoryStatusRoomsID = statusRooms.Single( i => i.StatusRoom == "Свободен").DirectoryStatusRoomsID,
+                               Repairs = false, CostPerDay = 1000},
             new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Apartment").DirectoryCategoryRoomsID,
-                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "2-местный").DirectoryTypeRoomsID, NumberRoom ="2"},
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "2-местный").DirectoryTypeRoomsID, NumberRoom ="2",
+                               DirectoryStatusRoomsID = statusRooms.Single( i => i.StatusRoom == "Свободен").DirectoryStatusRoomsID,
+                               Repairs = false, CostPerDay = 800},
             new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Family Room").DirectoryCategoryRoomsID,
-                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "3-местный").DirectoryTypeRoomsID, NumberRoom ="3"},
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "3-местный").DirectoryTypeRoomsID, NumberRoom ="3",
+                               DirectoryStatusRoomsID = statusRooms.Single( i => i.StatusRoom == "Свободен").DirectoryStatusRoomsID,
+                               Repairs = false, CostPerDay = 900},
             new DirectoryRooms{DirectoryCategoryRoomsID = categoryRooms.Single( i => i.CategoryRoom == "Standart").DirectoryCategoryRoomsID,
-                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "4-местный").DirectoryTypeRoomsID, NumberRoom ="4"},
+                               DirectoryTypeRoomsID = typeRooms.Single( i => i.TypeRoom == "4-местный").DirectoryTypeRoomsID, NumberRoom ="4",
+                               DirectoryStatusRoomsID = statusRooms.Single( i => i.StatusRoom == "Свободен").DirectoryStatusRoomsID,
+                               Repairs = false, CostPerDay = 700},
             };
             foreach (DirectoryRooms s in rooms)
             {
