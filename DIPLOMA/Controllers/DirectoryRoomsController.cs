@@ -61,7 +61,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,Repairs,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
+        public async Task<IActionResult> Create([Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,Repairs,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
+        public async Task<IActionResult> Edit(int id, [Bind("DirectoryRoomsID,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,DirectoryStatusRoomsID,CostPerDay,NumberRoom")] DirectoryRooms directoryRooms)
         {
             if (id != directoryRooms.DirectoryRoomsID)
             {

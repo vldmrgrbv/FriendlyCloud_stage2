@@ -20,5 +20,8 @@ namespace DIPLOMA.Data
         public DbSet<DirectoryTypeRooms> TypeRooms { get; set; }
         public DbSet<DirectoryRooms> Rooms { get; set; }
         public DbSet<DirectoryStatusRooms> StatusRooms { get; set; }
+
+        public DbSet<DirectoryStatusAccommodation> StatusAccommodation { get; set; }
+        public DbSet<DocumentAccommodation> Accommodation { get; set; }
     }
 }

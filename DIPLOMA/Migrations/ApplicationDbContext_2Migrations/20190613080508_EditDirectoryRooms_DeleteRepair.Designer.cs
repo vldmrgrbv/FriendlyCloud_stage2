@@ -4,14 +4,16 @@ using DIPLOMA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
 {
     [DbContext(typeof(ApplicationDbContext_2))]
-    partial class ApplicationDbContext_2ModelSnapshot : ModelSnapshot
+    [Migration("20190613080508_EditDirectoryRooms_DeleteRepair")]
+    partial class EditDirectoryRooms_DeleteRepair
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,21 +185,6 @@ namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("DIPLOMA.Models.DirectoryStatusAccommodation", b =>
-                {
-                    b.Property<int>("DirectoryStatusAccommodationID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("StatusAccommodation")
-                        .IsRequired()
-                        .HasMaxLength(20);
-
-                    b.HasKey("DirectoryStatusAccommodationID");
-
-                    b.ToTable("StatusAccommodation");
-                });
-
             modelBuilder.Entity("DIPLOMA.Models.DirectoryStatusRooms", b =>
                 {
                     b.Property<int>("DirectoryStatusRoomsID")
@@ -228,79 +215,6 @@ namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
                     b.ToTable("TypeRooms");
                 });
 
-            modelBuilder.Entity("DIPLOMA.Models.DocumentAccommodation", b =>
-                {
-                    b.Property<int>("DocumentAccommodationID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AddressRegistration");
-
-                    b.Property<string>("AddressResidential");
-
-                    b.Property<DateTime>("ClientDate");
-
-                    b.Property<decimal>("CostPerDay")
-                        .HasColumnType("money");
-
-                    b.Property<decimal>("CostTotal")
-                        .HasColumnType("money");
-
-                    b.Property<string>("DataAboutWorkPlace");
-
-                    b.Property<DateTime>("DateAccommodation");
-
-                    b.Property<DateTime>("DateEviction");
-
-                    b.Property<int>("DirectoryCategoryRoomsID");
-
-                    b.Property<int>("DirectoryStatusAccommodationID");
-
-                    b.Property<int>("DirectoryTypeRoomsID");
-
-                    b.Property<string>("Email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<int>("NumberOfPersons");
-
-                    b.Property<string>("NumberRoom")
-                        .IsRequired()
-                        .HasMaxLength(10);
-
-                    b.Property<string>("PassportNumber")
-                        .HasMaxLength(6);
-
-                    b.Property<string>("PassportSerial")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Patronymic")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<decimal>("Payment")
-                        .HasColumnType("money");
-
-                    b.Property<string>("SecondName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<string>("TelephoneNumber")
-                        .HasMaxLength(11);
-
-                    b.HasKey("DocumentAccommodationID");
-
-                    b.HasIndex("DirectoryCategoryRoomsID");
-
-                    b.HasIndex("DirectoryStatusAccommodationID");
-
-                    b.HasIndex("DirectoryTypeRoomsID");
-
-                    b.ToTable("Accommodation");
-                });
-
             modelBuilder.Entity("DIPLOMA.Models.DirectoryEmployees", b =>
                 {
                     b.HasOne("DIPLOMA.Models.DirectoryServices", "DirectoryServices")
@@ -323,24 +237,6 @@ namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
 
                     b.HasOne("DIPLOMA.Models.DirectoryTypeRooms", "DirectoryTypeRooms")
                         .WithMany("Rooms")
-                        .HasForeignKey("DirectoryTypeRoomsID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DIPLOMA.Models.DocumentAccommodation", b =>
-                {
-                    b.HasOne("DIPLOMA.Models.DirectoryCategoryRooms", "DirectoryCategoryRooms")
-                        .WithMany()
-                        .HasForeignKey("DirectoryCategoryRoomsID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DIPLOMA.Models.DirectoryStatusAccommodation", "DirectoryStatusBooking")
-                        .WithMany("Accommodation")
-                        .HasForeignKey("DirectoryStatusAccommodationID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DIPLOMA.Models.DirectoryTypeRooms", "DirectoryTypeRooms")
-                        .WithMany()
                         .HasForeignKey("DirectoryTypeRoomsID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -4,14 +4,16 @@ using DIPLOMA.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DIPLOMA.Migrations.ApplicationDbContext_2Migrations
 {
     [DbContext(typeof(ApplicationDbContext_2))]
-    partial class ApplicationDbContext_2ModelSnapshot : ModelSnapshot
+    [Migration("20190613090842_AddDocumentAccommodationAndDirectoryStatusAccommodation")]
+    partial class AddDocumentAccommodationAndDirectoryStatusAccommodation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

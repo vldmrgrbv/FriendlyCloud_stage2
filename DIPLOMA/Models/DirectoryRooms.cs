@@ -17,8 +17,6 @@ namespace DIPLOMA.Models
         [Required]
         public int DirectoryStatusRoomsID { get; set; }
         [Required]
-        public bool Repairs { get; set; }
-        [Required]
         [DataType(DataType.Currency)]
         [Column(TypeName = "money")]
         public decimal CostPerDay { get; set; }
