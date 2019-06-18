@@ -1,157 +1,328 @@
-﻿
-@model IEnumerable<DIPLOMA.Models.DocumentAccommodation>
+﻿@model IEnumerable<DIPLOMA.Models.DocumentAccommodation>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Карточки гостей</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Добавить</a>
 </p>
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Имя/Фамилия: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Поиск" class="btn btn-light" />
+            <a asp-action="Index" class="btn btn-default">Полный список</a>
+        </p>
+    </div>
+</form>
+
+<a asp-action="Index"
+   class="btn btn-default">
+    Назад
+</a>
+<a asp-action="Index"
+   class="btn btn-default">
+    Вперед
+</a>
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.DateAccommodation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateEviction)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberOfPersons)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SecondName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Patronymic)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassportSerial)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PassportNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AddressRegistration)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AddressResidential)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TelephoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataAboutWorkPlace)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumberRoom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostPerDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CostTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Payment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DirectoryStatusBooking)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DirectoryTypeRooms)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DirectoryCategoryRooms)
-            </th>
             <th></th>
+            <th>
+                Статус
+            </th>
+            <th>
+                Имя
+            </th>
+            <th>
+                Фамилия
+            </th>
+            <th>
+                Отчество
+            </th>
+            <th>
+                Дата заселения
+            </th>
+            <th>
+                Дата выселения
+            </th>
+            <th>
+                Телефон
+            </th>
+            <th>
+                Email
+            </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateAccommodation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateEviction)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberOfPersons)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SecondName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Patronymic)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PassportSerial)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PassportNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddressRegistration)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AddressResidential)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TelephoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataAboutWorkPlace)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ClientDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumberRoom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CostPerDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CostTotal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Payment)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DirectoryStatusBooking.StatusAccommodation)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DirectoryTypeRooms.TypeRoom)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DirectoryCategoryRooms.CategoryRoom)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.DocumentAccommodationID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.DocumentAccommodationID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.DocumentAccommodationID">Delete</a>
-                </td>
-            </tr>
-        }
+        <tr class="bg-light">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Забронирован<hr>
+
+                Без подселения
+            </td>
+            <td>
+                Константин
+            </td>
+            <td>
+                Григорьев
+            </td>
+            <td>
+                Михаилович
+            </td>
+            <td>
+                01.07.2019 12:00
+            </td>
+            <td>
+                03.07.2019 12:00
+            </td>
+            <td>
+                89607328512
+            </td>
+            <td>
+                konst_grig@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Забронирован<hr>
+
+                С подселением
+            </td>
+            <td>
+                Василий
+            </td>
+            <td>
+                Наумов
+            </td>
+            <td>
+                Николаевич
+            </td>
+            <td>
+                30.06.2019 10:00
+            </td>
+            <td>
+                05.07.2019 08:00
+            </td>
+            <td>
+                89612519363
+            </td>
+            <td>
+                vas_naum@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Заселен<hr>
+
+                Без подселения
+            </td>
+            <td>
+                Егор
+            </td>
+            <td>
+                Калончук
+            </td>
+            <td>
+                Дмитриевич
+            </td>
+            <td>
+                19.06.2019 08:00
+            </td>
+            <td>
+                30.06.2019 12:00
+            </td>
+            <td>
+                89069371842
+            </td>
+            <td>
+                egor_Dmitr1943@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Забронирован<hr>
+
+                Без подселения
+            </td>
+            <td>
+                Константин
+            </td>
+            <td>
+                Волун
+            </td>
+            <td>
+                Вадимович
+            </td>
+            <td>
+                02.07.2019 16:00
+            </td>
+            <td>
+                03.07.2019 12:00
+            </td>
+            <td>
+                89606294764
+            </td>
+            <td>
+                konst_volun24@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-secondary text-white">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Выселен<hr>
+
+                С подселением
+            </td>
+            <td>
+                Олег
+            </td>
+            <td>
+                Петров
+            </td>
+            <td>
+                Михаилович
+            </td>
+            <td>
+                20.05.2019 20:00
+            </td>
+            <td>
+                25.05.2019 14:00
+            </td>
+            <td>
+                89603129874
+            </td>
+            <td>
+                oleg_petrov@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-warning ">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Отменен<hr>
+
+                Без подселения
+            </td>
+            <td>
+                Роман
+            </td>
+            <td>
+                Алексеев
+            </td>
+            <td>
+                Валерьевич
+            </td>
+            <td>
+                01.06.2019 12:00
+            </td>
+            <td>
+                03.06.2019 12:00
+            </td>
+            <td>
+                89627300243
+            </td>
+            <td>
+                roman_alexeev1990@mail.ru
+            </td>
+        </tr>
+        <tr class="bg-secondary text-white">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Выселен<hr>
+                
+                Без подселения
+            </td>
+            <td>
+                Анатолий
+            </td>
+            <td>
+                Ложкин
+            </td>
+            <td>
+                Сергеевич
+            </td>
+            <td>
+                01.06.2019 09:00
+            </td>
+            <td>
+                03.06.2019 18:00
+            </td>
+            <td>
+                89613416128
+            </td>
+            <td>
+                anatoliy_lozkin6712@gmail.com
+            </td>
+        </tr>
+        <tr class="bg-secondary text-white">
+            <td>
+                <a asp-action="Details" class="btn btn-info col-12 mb-1">Детально</a>
+                <a asp-action="Edit" class="btn btn-secondary col-12 mb-1">Изменить</a>
+                <a asp-action="Delete" class="btn btn-danger col-12">Удалить</a>
+            </td>
+            <td>
+                Выселен<hr>
+
+                С подселением
+            </td>
+            <td>
+                Федор
+            </td>
+            <td>
+                Дунаев
+            </td>
+            <td>
+                Романович
+            </td>
+            <td>
+                10.06.2019 17:00
+            </td>
+            <td>
+                03.07.2019 15:00
+            </td>
+            <td>
+                89628926451
+            </td>
+            <td>
+                fedor_dunaev71@mail.ru
+            </td>
+        </tr>
     </tbody>
 </table>

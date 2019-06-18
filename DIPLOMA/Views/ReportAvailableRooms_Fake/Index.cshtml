@@ -1,0 +1,222 @@
+﻿@model IEnumerable<DIPLOMA.Models.DocumentAccommodation>
+
+@{
+    ViewData["Title"] = "Отчет - Свободные номера";
+}
+
+<h1 class="mb-5">Свободные номера</h1>
+
+
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Номер/Категория/Вид: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Поиск" class="btn btn-light" />
+            <a asp-action="Index" class="btn btn-default">Полный список</a>
+        </p>
+    </div>
+</form>
+
+<a asp-action="Index"
+   class="btn btn-default">
+    Назад
+</a>
+<a asp-action="Index"
+   class="btn btn-default">
+    Вперед
+</a>
+
+<table class="table text-center">
+    <thead>
+        <tr>
+            <th>
+                Номер
+            </th>
+            <th>
+                Вид
+            </th>
+            <th>
+                Категория
+            </th>
+            <th>
+                Цена за койко-место за день (руб.)
+            </th>
+            <th>
+                Цена за номер за день (руб.)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="bg-light">
+            <td>
+                206
+            </td>
+            <td>
+                2-местный
+            </td>
+            <td>
+                Стандарт
+            </td>
+            <td>
+                300
+            </td>
+            <td>
+                500
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <td>
+                207
+            </td>
+            <td>
+                3-местный
+            </td>
+            <td>
+                Семейный
+            </td>
+            <td>
+                500
+            </td>
+            <td>
+                800
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                208
+            </td>
+            <td>
+                1-местный
+            </td>
+            <td>
+                Стандарт
+            </td>
+            <td>
+                300
+            </td>
+            <td>
+                500
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <td>
+                213
+            </td>
+            <td>
+                2-местный
+            </td>
+            <td>
+                Де-люкс
+            </td>
+            <td>
+                1200
+            </td>
+            <td>
+                2400
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                215
+            </td>
+            <td>
+                3-местный
+            </td>
+            <td>
+                Семейный
+            </td>
+            <td>
+                500
+            </td>
+            <td>
+                800
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <td>
+                301
+            </td>
+            <td>
+                1-местный
+            </td>
+            <td>
+                Апартмент
+            </td>
+            <td>
+                800
+            </td>
+            <td>
+                1000
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                302
+            </td>
+            <td>
+                2-местный
+            </td>
+            <td>
+                Стандарт
+            </td>
+            <td>
+                300
+            </td>
+            <td>
+                500
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <td>
+                310
+            </td>
+            <td>
+                3-местный
+            </td>
+            <td>
+                Семейный
+            </td>
+            <td>
+                500
+            </td>
+            <td>
+                800
+            </td>
+        </tr>
+        <tr class="bg-light">
+            <td>
+                312
+            </td>
+            <td>
+                1-местный
+            </td>
+            <td>
+                Стандарт
+            </td>
+            <td>
+                300
+            </td>
+            <td>
+                500
+            </td>
+        </tr>
+        <tr class="bg-info text-white">
+            <td>
+                316
+            </td>
+            <td>
+                2-местный
+            </td>
+            <td>
+                Де-люкс
+            </td>
+            <td>
+                1200
+            </td>
+            <td>
+                2400
+            </td>
+        </tr>
+
+    </tbody>
+</table>

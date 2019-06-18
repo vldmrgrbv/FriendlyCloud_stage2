@@ -16,12 +16,12 @@ namespace DIPLOMA.Models
         [Required]
         public int DirectoryStatusAccommodationID { get; set; }
         [Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-HH-mm}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-HH-mm}", ApplyFormatInEditMode = true)]
         public DateTime DateAccommodation { get; set; }
         [Required]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-HH-mm}", ApplyFormatInEditMode = true)]
+        //[DataType(DataType.Date)]
+        //[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd-HH-mm}", ApplyFormatInEditMode = true)]
         public DateTime DateEviction { get; set; }
         [Required]
         public int NumberOfPersons { get; set; }

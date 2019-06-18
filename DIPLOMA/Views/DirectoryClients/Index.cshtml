@@ -1,10 +1,10 @@
 ﻿@model PaginatedList<DIPLOMA.Models.DirectoryClients>
 
 @{
-    ViewData["Title"] = "Клиенты";
+    ViewData["Title"] = "Гости";
 }
 
-<h1>Клиенты</h1>
+<h1>Гости</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Добавить</a>
@@ -57,10 +57,10 @@
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["ClientDate"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Дата добавления</a>
                 </th>
                 <th>
-                    Серия паспорта
+                    Серия документа
                 </th>
                 <th>
-                    Номер паспорта
+                    Номер документа
                 </th>
                 <th>
                     Адрес регистрации

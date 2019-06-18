@@ -74,7 +74,7 @@ namespace DIPLOMA.Controllers
                     clients = clients.OrderBy(s => s.FirstName);
                     break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             return View(await PaginatedList<DirectoryClients>.CreateAsync(clients.AsNoTracking(), pageNumber ?? 1, pageSize));
             //return View(await clients.AsNoTracking().ToListAsync());
             //return View(await _context.Clients.ToListAsync());

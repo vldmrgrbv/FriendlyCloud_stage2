@@ -10,6 +10,7 @@ using DIPLOMA.Models;
 
 namespace DIPLOMA.Controllers
 {
+    [Route("DocumentAccommodationsController")]
     public class DocumentAccommodationsController : Controller
     {
         private readonly ApplicationDbContext_2 _context;
@@ -20,6 +21,7 @@ namespace DIPLOMA.Controllers
         }
 
         // GET: DocumentAccommodations
+        [Route("Index")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext_2 = _context.Accommodation.Include(d => d.DirectoryCategoryRooms).Include(d => d.DirectoryStatusBooking).Include(d => d.DirectoryTypeRooms);
@@ -27,6 +29,7 @@ namespace DIPLOMA.Controllers
         }
 
         // GET: DocumentAccommodations/Details/5
+        [Route("Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +51,7 @@ namespace DIPLOMA.Controllers
         }
 
         // GET: DocumentAccommodations/Create
+        [Route("Create")]
         public IActionResult Create()
         {
             ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom");
@@ -61,6 +65,7 @@ namespace DIPLOMA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Create/{documentAccommodation}")]
         public async Task<IActionResult> Create([Bind("DocumentAccommodationID,DirectoryStatusAccommodationID,DateAccommodation,DateEviction,NumberOfPersons,FirstName,SecondName,Patronymic,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace,ClientDate,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,NumberRoom,CostPerDay,CostTotal,Payment")] DocumentAccommodation documentAccommodation)
         {
             if (ModelState.IsValid)
@@ -73,100 +78,115 @@ namespace DIPLOMA.Controllers
             ViewData["DirectoryStatusAccommodationID"] = new SelectList(_context.StatusAccommodation, "DirectoryStatusAccommodationID", "StatusAccommodation", documentAccommodation.DirectoryStatusAccommodationID);
             ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", documentAccommodation.DirectoryTypeRoomsID);
             return View(documentAccommodation);
+
+    }
+
+        //[Route("NumberFree/{DirectoryCategoryRooms,DirectoryTypeRooms}")] ,DirectoryTypeRooms}
+
+        
+        //[HttpPost]
+        [Route("NumberFree/{DirectoryCategoryRooms, DirectoryTypeRooms}")]
+        public IActionResult NumberFree(string DirectoryCategoryRooms, string DirectoryTypeRooms)
+        {
+            return new JsonResult("Hello");
         }
 
         // GET: DocumentAccommodations/Edit/5
+        [Route("Edit")]
         public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var documentAccommodation = await _context.Accommodation.FindAsync(id);
-            if (documentAccommodation == null)
-            {
-                return NotFound();
-            }
-            ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", documentAccommodation.DirectoryCategoryRoomsID);
-            ViewData["DirectoryStatusAccommodationID"] = new SelectList(_context.StatusAccommodation, "DirectoryStatusAccommodationID", "StatusAccommodation", documentAccommodation.DirectoryStatusAccommodationID);
-            ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", documentAccommodation.DirectoryTypeRoomsID);
-            return View(documentAccommodation);
+            return NotFound();
         }
 
-        // POST: DocumentAccommodations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("DocumentAccommodationID,DirectoryStatusAccommodationID,DateAccommodation,DateEviction,NumberOfPersons,FirstName,SecondName,Patronymic,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace,ClientDate,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,NumberRoom,CostPerDay,CostTotal,Payment")] DocumentAccommodation documentAccommodation)
+        var documentAccommodation = await _context.Accommodation.FindAsync(id);
+        if (documentAccommodation == null)
         {
-            if (id != documentAccommodation.DocumentAccommodationID)
-            {
-                return NotFound();
-            }
+            return NotFound();
+        }
+        ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", documentAccommodation.DirectoryCategoryRoomsID);
+        ViewData["DirectoryStatusAccommodationID"] = new SelectList(_context.StatusAccommodation, "DirectoryStatusAccommodationID", "StatusAccommodation", documentAccommodation.DirectoryStatusAccommodationID);
+        ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", documentAccommodation.DirectoryTypeRoomsID);
+        return View(documentAccommodation);
+    }
 
-            if (ModelState.IsValid)
+    // POST: DocumentAccommodations/Edit/5
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [Route("Edit")]
+    public async Task<IActionResult> Edit(int id, [Bind("DocumentAccommodationID,DirectoryStatusAccommodationID,DateAccommodation,DateEviction,NumberOfPersons,FirstName,SecondName,Patronymic,PassportSerial,PassportNumber,AddressRegistration,AddressResidential,TelephoneNumber,Email,DataAboutWorkPlace,ClientDate,DirectoryCategoryRoomsID,DirectoryTypeRoomsID,NumberRoom,CostPerDay,CostTotal,Payment")] DocumentAccommodation documentAccommodation)
+    {
+        if (id != documentAccommodation.DocumentAccommodationID)
+        {
+            return NotFound();
+        }
+
+        if (ModelState.IsValid)
+        {
+            try
             {
-                try
+                _context.Update(documentAccommodation);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!DocumentAccommodationExists(documentAccommodation.DocumentAccommodationID))
                 {
-                    _context.Update(documentAccommodation);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
+                else
                 {
-                    if (!DocumentAccommodationExists(documentAccommodation.DocumentAccommodationID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", documentAccommodation.DirectoryCategoryRoomsID);
-            ViewData["DirectoryStatusAccommodationID"] = new SelectList(_context.StatusAccommodation, "DirectoryStatusAccommodationID", "StatusAccommodation", documentAccommodation.DirectoryStatusAccommodationID);
-            ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", documentAccommodation.DirectoryTypeRoomsID);
-            return View(documentAccommodation);
-        }
-
-        // GET: DocumentAccommodations/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var documentAccommodation = await _context.Accommodation
-                .Include(d => d.DirectoryCategoryRooms)
-                .Include(d => d.DirectoryStatusBooking)
-                .Include(d => d.DirectoryTypeRooms)
-                .FirstOrDefaultAsync(m => m.DocumentAccommodationID == id);
-            if (documentAccommodation == null)
-            {
-                return NotFound();
-            }
-
-            return View(documentAccommodation);
-        }
-
-        // POST: DocumentAccommodations/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var documentAccommodation = await _context.Accommodation.FindAsync(id);
-            _context.Accommodation.Remove(documentAccommodation);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        private bool DocumentAccommodationExists(int id)
-        {
-            return _context.Accommodation.Any(e => e.DocumentAccommodationID == id);
-        }
+        ViewData["DirectoryCategoryRoomsID"] = new SelectList(_context.CategoryRooms, "DirectoryCategoryRoomsID", "CategoryRoom", documentAccommodation.DirectoryCategoryRoomsID);
+        ViewData["DirectoryStatusAccommodationID"] = new SelectList(_context.StatusAccommodation, "DirectoryStatusAccommodationID", "StatusAccommodation", documentAccommodation.DirectoryStatusAccommodationID);
+        ViewData["DirectoryTypeRoomsID"] = new SelectList(_context.TypeRooms, "DirectoryTypeRoomsID", "TypeRoom", documentAccommodation.DirectoryTypeRoomsID);
+        return View(documentAccommodation);
     }
+
+    // GET: DocumentAccommodations/Delete/5
+    [Route("Delete")]
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null)
+        {
+            return NotFound();
+        }
+
+        var documentAccommodation = await _context.Accommodation
+            .Include(d => d.DirectoryCategoryRooms)
+            .Include(d => d.DirectoryStatusBooking)
+            .Include(d => d.DirectoryTypeRooms)
+            .FirstOrDefaultAsync(m => m.DocumentAccommodationID == id);
+        if (documentAccommodation == null)
+        {
+            return NotFound();
+        }
+
+        return View(documentAccommodation);
+    }
+
+    // POST: DocumentAccommodations/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    [Route("DeleteConfirmed")]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var documentAccommodation = await _context.Accommodation.FindAsync(id);
+        _context.Accommodation.Remove(documentAccommodation);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+
+    private bool DocumentAccommodationExists(int id)
+    {
+        return _context.Accommodation.Any(e => e.DocumentAccommodationID == id);
+    }
+}
 }
